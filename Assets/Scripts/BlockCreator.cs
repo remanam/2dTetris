@@ -18,7 +18,7 @@ public class BlockCreator : MonoBehaviour
     // Start is called before the first frame update
 
 
-    bool b = false; //Debug
+    public bool firstStart = true; 
     void Update()
     {
         
@@ -26,11 +26,11 @@ public class BlockCreator : MonoBehaviour
         timer += Time.deltaTime;
 
         // Каждый blockSpawnFrequency появляем случайный блок
-        if (TetrisGrid.neetToSpeawn == true) {
+        if (TetrisGrid.neetToSpeawn == true || firstStart == true) {
 
 
             SpawnBlock();
-            //b = true;  //Debug
+            firstStart = false;  
 
             TetrisGrid.neetToSpeawn = false;
         }

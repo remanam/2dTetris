@@ -15,19 +15,21 @@ public class GameController : MonoBehaviour
     private Vector3 tempPosition;
     private Vector3 startPosition;
 
-    public static float normal_Step_Timer = 0.3f;
+    public static float normal_Step_Timer = 0.45f;
     public static float fast_Step_Timer = 0.15f; // Когда игрок нажал кнопку вниз
     
     public GameObject[ , ] tempTetrisGrid = new GameObject[ TetrisGrid.width, TetrisGrid.height];
 
+    public static bool leftButtonPressed = false;
+    public static bool rightButtonPressed = false;
+    public static bool rotateButtonPressed = false;
+    public static bool accelerationButtonPressed = false;
 
-    // Здесь храним префабы
-    //public blockType[] blockProperties;
 
     private void Start()
     {
 
-        //InitBlockProperties();
+
         InitEmptyGrid(); // Создаём матрицу из GameObject на позициях каждый клетки Grid
     }
 
@@ -91,7 +93,11 @@ public class GameController : MonoBehaviour
     //DEBUG
     public void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+        TetrisGrid.neetToSpeawn = true;
+        SceneManager.LoadScene("MainMenu");
+        
+
     }
 
 }

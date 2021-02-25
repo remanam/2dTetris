@@ -41,26 +41,30 @@ public class BlockLogic : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space) && CanMoveDown()
-            && CanMoveHorizontal("Left") && CanMoveHorizontal("Right")) {
-            //RotateBlock();
-        }
+
 
         // ѕроверка можно ли двигать блок
         if (movable == true) {
             timer += Time.deltaTime;
 
+            if (GameController.rotateButtonPressed) {
+                RotateBlock();
+                
+            }
+
             // Left 
-            if (Input.GetKeyDown(KeyCode.A) && CanMoveHorizontal("Left") == true) {
+            if (GameController.leftButtonPressed == true && CanMoveHorizontal("Left") == true) {
 
                 MoveBlockHorizontal("Left");
 
             }
             //Right
-            if (Input.GetKeyDown(KeyCode.D) && CanMoveHorizontal("Right") == true) {
+            if (GameController.rightButtonPressed == true && CanMoveHorizontal("Right") == true) {
 
                 MoveBlockHorizontal("Right");
             }
+
+            
 
             if (timer - previous_Step_Timer > GameController.normal_Step_Timer && CanMoveDown() == true) {
 
@@ -68,6 +72,7 @@ public class BlockLogic : MonoBehaviour
                 MoveBlockDown();
                 previous_Step_Timer = timer;
             }
+            
         }
 
     }
@@ -186,39 +191,76 @@ public class BlockLogic : MonoBehaviour
     private void RotateBlock()
     {
 
-        //ќчищаем текущие клетки
-        for (int i = 0; i < startblockOffsets.Length; i++) {
+        Vector2Int[] tempStartOffsets = new Vector2Int[startblockOffsets.Length];
 
+        //ѕровер€ю можно ли крутить блок
+        for (int i = 0; i < blockPositions.Length; i++) {
 
+            // »змен€ю временные отступы, чтобы проверить можно ли крутить
+            int temp = startblockOffsets[i].x - startblockOffsets[0].x;
+            tempStartOffsets[i].x = startblockOffsets[i].y - startblockOffsets[0].y;
 
-            TetrisGrid.fillMatrix[ TetrisGrid.spawnStartPosition.x + blockPositions[i].x,
-                                                                   + blockPositions[i].y]   = 0;
+            tempStartOffsets[i].y = -temp;
+
+            //ѕроверка можно ли повернуть блок
+            if (blockPositions[i].x + TetrisGrid.spawnStartPosition.x + tempStartOffsets[i].x > TetrisGrid.width - 1 ||
+                blockPositions[i].x + TetrisGrid.spawnStartPosition.x + tempStartOffsets[i].x < 0 ||
+                blockPositions[i].y + tempStartOffsets[i].y > TetrisGrid.height - 1 ||
+                blockPositions[i].y + tempStartOffsets[i].y < 0 || 
+                TetrisGrid.fillMatrix[blockPositions[i].x + TetrisGrid.spawnStartPosition.x + tempStartOffsets[i].x, blockPositions[i].y + tempStartOffsets[i].y] == 2 ) {
+
+                return;
+                
+            }
         }
-
-
 
         // ѕоворачиваем блок
-        // startPosition[0] считаем как pivot
-        for (int i = 0; i < blockPositions.Length - 1; i++) {
+        // startPosition[0] считаем как центр фигуры
+        for (int i = blockPositions.Length - 1; i >= 0; i--) {             
+                
+            
 
-            if (degree != null) {
+            //ќчищаем старые блоки
+            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + blockPositions[i].x,
+                                                                    + blockPositions[i].y] = 0;
 
-                int temp = startblockOffsets[i + 1].x - startblockOffsets[0].x; 
-                startblockOffsets[i + 1].x = startblockOffsets[i + 1].y - startblockOffsets[0].y;
 
-                startblockOffsets[i + 1].y = -temp; 
+            // ќтнимаю старые отступы
+            blockPositions[i].x -= startblockOffsets[i].x;
+            blockPositions[i].y -= startblockOffsets[i].y;
 
+            // у центра не отнимаем самого себ€
+            if (i != 0) {
+
+                // отнимаю центр от текущих отступов
+                startblockOffsets[i].x -= startblockOffsets[0].x;
+                startblockOffsets[i].y -= startblockOffsets[0].y;
+
+                // »змен€ю отступы
+                int temp = startblockOffsets[i].x;
+                startblockOffsets[i].x = startblockOffsets[i].y + startblockOffsets[0].y;
+                startblockOffsets[i].y = -temp + startblockOffsets[0].x;
+
+                // ѕрибавл€ю новые отступы
+                blockPositions[i].x += startblockOffsets[i].x ;
+                blockPositions[i].y += startblockOffsets[i].y ;
+            }
+            else {
+                // ѕоворачиваю центра в новую позицию
+                int temp0 = startblockOffsets[0].x;
+                startblockOffsets[0].x = startblockOffsets[0].y;
+                startblockOffsets[0].y = -temp0;
             }
 
-
+            // «акрашиваю позиции с новыми отступами
+            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + blockPositions[i].x, blockPositions[i].y] = 1;
         }
-        // заполн€ем новые изменЄнные клетки
-        for (int j = 0; j < blockPositions.Length; j++) {
 
-            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + blockPositions[j].x, blockPositions[j].y] = 1;
 
-        }
+
+
     }
+
 
     //DEBUG
 

@@ -12,7 +12,7 @@ public class TetrisGrid
     public const int height = 20;
 
     // координаты матрицы, откуда будут появляться блоки
-    public static Vector2Int spawnStartPosition =  new Vector2Int(4, 0);
+    public static Vector2Int spawnStartPosition =  new Vector2Int(4, 0); 
 
     // 0 - пусто, 1 - закрашенная фигура
     public static int[,] fillMatrix = new int[ width, height];
