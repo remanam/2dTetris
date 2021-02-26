@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController instance;
+
     [SerializeField]
     private GameObject cellPrefab;
 
@@ -15,20 +18,35 @@ public class GameController : MonoBehaviour
     private Vector3 tempPosition;
     private Vector3 startPosition;
 
-    public static float normal_Step_Timer = 0.45f;
-    public static float fast_Step_Timer = 0.15f; // Когда игрок нажал кнопку вниз
+    public float normal_Step_Timer = 0.45f;
+    public float fast_Step_Timer = 0.15f; // Когда игрок нажал кнопку вниз
     
     public GameObject[ , ] tempTetrisGrid = new GameObject[ TetrisGrid.width, TetrisGrid.height];
 
-    public static bool leftButtonPressed = false;
-    public static bool rightButtonPressed = false;
-    public static bool rotateButtonPressed = false;
-    public static bool accelerationButtonPressed = false;
+    public bool leftButtonPressed = false;
+    public bool rightButtonPressed = false;
+    public bool rotateButtonPressed = false;
+    public bool accelerationButtonPressed = false;
 
+    private void Awake()
+    {
+        MakeSingleton();
+    }
+
+    private void MakeSingleton()
+    {
+        if (instance != null) {
+            Destroy(gameObject);
+        }
+        else {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+    }
 
     private void Start()
     {
-
 
         InitEmptyGrid(); // Создаём матрицу из GameObject на позициях каждый клетки Grid
     }

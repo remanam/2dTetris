@@ -7,7 +7,7 @@ public class AccelerationButton : MonoBehaviour, IPointerDownHandler, IPointerUp
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameController.accelerationButtonPressed = true;
+        GameController.instance.accelerationButtonPressed = true;
     }
 
 
@@ -16,6 +16,6 @@ public class AccelerationButton : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GameController.rotateButtonPressed = false;
+        GameController.instance.rotateButtonPressed = false;
     }
 }

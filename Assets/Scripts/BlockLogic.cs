@@ -47,26 +47,26 @@ public class BlockLogic : MonoBehaviour
         if (movable == true) {
             timer += Time.deltaTime;
 
-            if (GameController.rotateButtonPressed) {
+            if (GameController.instance.rotateButtonPressed) {
                 RotateBlock();
                 
             }
 
             // Left 
-            if (GameController.leftButtonPressed == true && CanMoveHorizontal("Left") == true) {
+            if (GameController.instance.leftButtonPressed == true && CanMoveHorizontal("Left") == true) {
 
                 MoveBlockHorizontal("Left");
 
             }
             //Right
-            if (GameController.rightButtonPressed == true && CanMoveHorizontal("Right") == true) {
+            if (GameController.instance.rightButtonPressed == true && CanMoveHorizontal("Right") == true) {
 
                 MoveBlockHorizontal("Right");
             }
 
             
 
-            if (timer - previous_Step_Timer > GameController.normal_Step_Timer && CanMoveDown() == true) {
+            if (timer - previous_Step_Timer > GameController.instance.normal_Step_Timer && CanMoveDown() == true) {
 
                 Debug.Log("Moved down 1");
                 MoveBlockDown();
