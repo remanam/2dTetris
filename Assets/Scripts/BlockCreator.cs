@@ -46,7 +46,7 @@ public class BlockCreator : MonoBehaviour
 
         foreach(Vector2Int cubeCoord in blocksToSpawn[randIndex].GetComponent<BlockLogic>().startblockOffsets) {
 
-            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + cubeCoord.x, cubeCoord.y] = 1;
+            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + cubeCoord.x, cubeCoord.y] = TetrisGrid.cell.FILLED;
 
         }   
     }

@@ -43,59 +43,10 @@ public class BlockLogic : MonoBehaviour
 
 
 
-        // Проверка можно ли двигать блок
-        if (movable == true) {
-            timer += Time.deltaTime;
 
-            if (GameController.instance.rotateButtonPressed) {
-                RotateBlock();
-                
-            }
-
-            // Left 
-            if (GameController.instance.leftButtonPressed == true && CanMoveHorizontal("Left") == true) {
-
-                MoveBlockHorizontal("Left");
-
-            }
-            //Right
-            if (GameController.instance.rightButtonPressed == true && CanMoveHorizontal("Right") == true) {
-
-                MoveBlockHorizontal("Right");
-            }
-
-            
-
-            if (timer - previous_Step_Timer > GameController.instance.normal_Step_Timer && CanMoveDown() == true) {
-
-                Debug.Log("Moved down 1");
-                MoveBlockDown();
-                previous_Step_Timer = timer;
-            }
-            
-        }
 
     }
 
-    private void MoveBlockDown()
-    {
-        // очищаем текущие клетки
-        foreach (Vector2Int coord in blockPositions) {
-            
-            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + coord.x, 
-                                   coord.y] = 0;
-
-        }
-
-        // закрашиваем новые координаты и обновляем отступы нашего блока
-        for (int i = 0; i < blockPositions.Length; i++) {
-
-            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + blockPositions[i].x,
-                                  blockPositions[i].y + 1] = 1;
-
-            blockPositions[i].y += 1;
-        }
-    }
 
     private bool CanMoveDown()
     {

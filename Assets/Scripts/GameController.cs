@@ -8,25 +8,29 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    public TetrisGrid tetrisGrid;
+
     [SerializeField]
     private GameObject cellPrefab;
 
-    //Окрашивание ячеек
+    //For compact scene object storage
+    [SerializeField]
+    private Transform parentForGridCell;
+
+    //filled Cubesprite
     public Sprite filledCube;
-    public Sprite emptyCube;
+
 
     private Vector3 tempPosition;
     private Vector3 startPosition;
 
-    public float normal_Step_Timer = 0.45f;
-    public float fast_Step_Timer = 0.15f; // Когда игрок нажал кнопку вниз
-    
-    public GameObject[ , ] tempTetrisGrid = new GameObject[ TetrisGrid.width, TetrisGrid.height];
+    public float normal_Block_Timer = 0.45f;
+    public float fast_Block_Timer = 0.15f; // Когда игрок нажал кнопку вниз
 
-    public bool leftButtonPressed = false;
-    public bool rightButtonPressed = false;
-    public bool rotateButtonPressed = false;
-    public bool accelerationButtonPressed = false;
+
+    public GameObject[,] tempTetrisGrid;
+
+
 
     private void Awake()
     {
@@ -47,7 +51,10 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        tetrisGrid = new TetrisGrid(10, 20, new Vector2Int(2, 4));
 
+
+        tempTetrisGrid = new GameObject[tetrisGrid.GetMatrixSize().x,  tetrisGrid.GetMatrixSize().y];
         InitEmptyGrid(); // Создаём матрицу из GameObject на позициях каждый клетки Grid
     }
 
@@ -61,19 +68,21 @@ public class GameController : MonoBehaviour
     {
         startPosition = transform.position;
 
-        for (int y = 0; y < TetrisGrid.height; y++) {
+        for (int y = 0; y < tetrisGrid.GetMatrixSize().y; y++) {
 
-            for (int x = 0; x < TetrisGrid.width; x++) {
-                tempPosition = startPosition + new Vector3(TetrisGrid.grid_Step * x, -TetrisGrid.grid_Step * y, 0f);
+            for (int x = 0; x < tetrisGrid.GetMatrixSize().x; x++) {
+                tempPosition = startPosition + new Vector3(tetrisGrid.grid_Step * x, -tetrisGrid.grid_Step * y, 0f);
                 transform.position = tempPosition;
 
 
-                TetrisGrid.tetrisGrid[x, y] = cellPrefab;
+                tetrisGrid.tetrisGrid[x, y] = cellPrefab;
 
-                TetrisGrid.tetrisGrid[x, y].transform.position = transform.position; //Позиции пустых клеток
-                TetrisGrid.fillMatrix[x, y] = 0; // Устанавливаем пустые клетки
+                tetrisGrid.tetrisGrid[x, y].transform.position = transform.position; //Позиции пустых клеток
+                tetrisGrid.fillMatrix[x, y] = 0; // Устанавливаем пустые клетки
 
-                GameObject obj = Instantiate(TetrisGrid.tetrisGrid[x, y], transform.position, Quaternion.identity);
+                GameObject obj = Instantiate(tetrisGrid.tetrisGrid[x, y], transform.position, Quaternion.identity);
+                // Set parent transform for convinience
+                obj.transform.SetParent(parentForGridCell);
 
                 tempTetrisGrid[x, y] = obj;
 
@@ -82,26 +91,24 @@ public class GameController : MonoBehaviour
             tempPosition = startPosition;
         }
 
-        TetrisGrid.tetrisGrid = tempTetrisGrid;
+            tetrisGrid.tetrisGrid = tempTetrisGrid;
     }
 
 
-    private void UpdateGridSprites()
+    private void UpdateGridSprites(Vector2Int[] positions, Vector2Int[] posToUpdate)
     {
-        for (int y = 0; y < TetrisGrid.height; y++) {
-
-            for (int x = 0; x < TetrisGrid.width; x++) {
+        for (int i; i < positions.Length; 
 
 
                 //Если значения в элементе матрице = 1, то этот кубик закрашиваем
-                if (TetrisGrid.fillMatrix[x, y] == 1) {
-                    TetrisGrid.tetrisGrid[x, y].GetComponent<SpriteRenderer>().sprite = filledCube;
+                if (tetrisGrid.fillMatrix[x, y] == TetrisGrid.cell.FILLED) {
+                    tetrisGrid.tetrisGrid[x, y].GetComponent<SpriteRenderer>().sprite = filledCube;
 
 
                 }
 
-                if (TetrisGrid.fillMatrix[x, y] == 0) {
-                    TetrisGrid.tetrisGrid[x, y].GetComponent<SpriteRenderer>().sprite = emptyCube;
+                if (tetrisGrid.fillMatrix[x, y] == TetrisGrid.cell.EMPTY) {
+                    tetrisGrid.tetrisGrid[x, y].SetActive(false); // Делаем ячейку неактивной
                 }
 
             }

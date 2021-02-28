@@ -4,26 +4,41 @@ using UnityEngine;
 
 public class TetrisGrid
 {
-    public static TetrisGrid _instance;
 
-    public static float grid_Step = 0.3755f;
+    public float grid_Step = 0.3755f;
 
-    public const int width = 10;
-    public const int height = 20;
+    private static int width;
+    private static int height;
 
-    // координаты матрицы, откуда будут появляться блоки
-    public static Vector2Int spawnStartPosition =  new Vector2Int(4, 0); 
+    // default spawnPosition on TetrisGrid
+    public Vector2Int spawnStartPosition =  new Vector2Int(4, 0); 
 
-    // 0 - пусто, 1 - закрашенная фигура
-    public static int[,] fillMatrix = new int[ width, height];
+    public enum cell{
+        EMPTY,
+        FILLED,
+        FILLED_NOT_MOVING // block stopped to move
+    }
 
-    [SerializeField]
-    // Матрица позиций
-    public static GameObject[,] tetrisGrid = new GameObject[width, height];
+    public cell[,] fillMatrix = new cell[width, height];
 
-    // Показывает нужно ли спавнить следующий блок тетриса 
+    // Position matrix
+    public GameObject[,] tetrisGrid = new GameObject[width, height];
+
+    // true if need to spawn next block
     public static bool neetToSpeawn = true;
 
+
+    public TetrisGrid(int _width, int _height, Vector2Int _spawnStartPosition)
+    {
+        width = _width;
+        height = _height;
+        spawnStartPosition = _spawnStartPosition;
+    }
+
+    public Vector2Int GetMatrixSize()
+    {
+        return new Vector2Int(width, height);
+    }
 
 
 

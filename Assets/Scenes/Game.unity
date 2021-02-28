@@ -639,8 +639,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 3464511828253477740, guid: 479fe3778f03ae1418b9fdc8b432aab5, type: 3}
+  parentForGridCell: {fileID: 1887906627}
   filledCube: {fileID: 5826410909707381162, guid: 90661493cfcb3f54191dc0b2c41fc4d5, type: 3}
   emptyCube: {fileID: 21300000, guid: 5289e2533bd232e4b8986b716233b0ce, type: 3}
+  normal_Step_Timer: 0.45
+  fast_Step_Timer: 0.15
+  leftButtonPressed: 0
+  rightButtonPressed: 0
+  rotateButtonPressed: 0
+  accelerationButtonPressed: 0
 --- !u!4 &726497970
 Transform:
   m_ObjectHideFlags: 0
@@ -671,6 +678,7 @@ MonoBehaviour:
   - {fileID: 4946571321876390267, guid: a965e1fcf1695644290f1be1cf99937e, type: 3}
   - {fileID: 4946571321876390267, guid: 992e9394519d5fa41954769a1a52c47b, type: 3}
   blockSpawnFrequency: 6
+  firstStart: 1
 --- !u!1 &878954996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1281,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698e41ddd39d8004d8bb1f7d712e7c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1887906626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887906627}
+  m_Layer: 0
+  m_Name: GRID
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1887906627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887906626}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6232203, y: 1.177087, z: -0.48359287}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982602382
 GameObject:
   m_ObjectHideFlags: 0
