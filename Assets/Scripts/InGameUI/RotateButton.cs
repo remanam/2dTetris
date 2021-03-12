@@ -7,7 +7,7 @@ public class RotateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameController.instance.rotateButtonPressed = true;
+        GameController.instance.GetComponent<BlockMover>().rotateButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -19,7 +19,7 @@ public class RotateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        GameController.instance.rotateButtonPressed = false;
+        GameController.instance.GetComponent<BlockMover>().rotateButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)

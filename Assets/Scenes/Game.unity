@@ -454,6 +454,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &610854963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 610854964}
+  m_Layer: 0
+  m_Name: gridStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &610854964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610854963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.21, y: 3.628, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 726497970}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &629630940
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,16 +668,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8014cb4070402ce409304fd6795de456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 3464511828253477740, guid: 479fe3778f03ae1418b9fdc8b432aab5, type: 3}
   parentForGridCell: {fileID: 1887906627}
+  gridStartPosition: {fileID: 610854964}
+  cellPrefab: {fileID: 3464511828253477740, guid: 479fe3778f03ae1418b9fdc8b432aab5, type: 3}
   filledCube: {fileID: 5826410909707381162, guid: 90661493cfcb3f54191dc0b2c41fc4d5, type: 3}
-  emptyCube: {fileID: 21300000, guid: 5289e2533bd232e4b8986b716233b0ce, type: 3}
-  normal_Step_Timer: 0.45
-  fast_Step_Timer: 0.15
-  leftButtonPressed: 0
-  rightButtonPressed: 0
-  rotateButtonPressed: 0
-  accelerationButtonPressed: 0
+  width: 10
+  height: 20
+  normal_Block_Speed: 0.45
+  fast_Block_Speed: 0.2
+  blockCreator: {fileID: 726497971}
+  neetToSpawn: 1
+  firstStart: 1
 --- !u!4 &726497970
 Transform:
   m_ObjectHideFlags: 0
@@ -656,9 +687,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726497968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.21, y: 3.628, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 610854964}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -674,11 +706,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574aecdce14679243a0137733a6faf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocksToSpawn:
-  - {fileID: 4946571321876390267, guid: a965e1fcf1695644290f1be1cf99937e, type: 3}
-  - {fileID: 4946571321876390267, guid: 992e9394519d5fa41954769a1a52c47b, type: 3}
+  tetraminos:
+  - {fileID: 4946571321876390267, guid: 107a306563e4c2d4cbe2559b792b04ac, type: 3}
+  spawnPosition: {x: 5, y: 0}
   blockSpawnFrequency: 6
-  firstStart: 1
 --- !u!1 &878954996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,3 +1609,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c14e4caf23739041a758da7b566a5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2144494230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2144494232}
+  - component: {fileID: 2144494231}
+  m_Layer: 0
+  m_Name: Tetramino Mover
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2144494231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144494230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4844687736868374faf1b96bebecdabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftButtonPressed: 0
+  rightButtonPressed: 0
+  rotateButtonPressed: 0
+  accelerationButtonPressed: 0
+  tetraminoToMove: []
+--- !u!4 &2144494232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144494230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.24076636, y: 0.88350034, z: -3.2217605}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

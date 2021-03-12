@@ -8,54 +8,48 @@ public class BlockCreator : MonoBehaviour
     private float previous_Step_Timer ;
     private float timer ;
 
-    // здесь будем хранить типы блоков  
-    public  GameObject[] blocksToSpawn;
+    // Tetramino prefabs 
+    public  GameObject[] tetraminos;
+
+    [SerializeField]
+    private Vector2Int spawnPosition;
 
     private int randomIndex;
 
     [SerializeField]
     private float blockSpawnFrequency = 5f;
-    // Start is called before the first frame update
 
 
-    public bool firstStart = true; 
-    void Update()
+
+    private void Start()
     {
-        
-        
-        timer += Time.deltaTime;
 
-        //  аждый blockSpawnFrequency по€вл€ем случайный блок
-        if (TetrisGrid.neetToSpeawn == true || firstStart == true) {
+    }
+
+    // fill cell which forms a new Tetramino
+    public Vector2Int[] SpawnTetramino()
+    {
+        int randIndex = getRandomBlockIndex();
+
+        var tetraminoCoords = tetraminos[randIndex].GetComponent<Tetramino_Data>().GetTetraminoCoords();
 
 
-            SpawnBlock();
-            firstStart = false;  
+        foreach (Vector2Int cell in tetraminoCoords) {
 
-            TetrisGrid.neetToSpeawn = false;
+            GameController.instance.tetrisGrid.grid[spawnPosition.x + cell.x, 
+                              spawnPosition.y + cell.y]
+                              .GetComponent<SpriteRenderer>().enabled = true;
+
         }
-    }
 
-    private void SpawnBlock()
-    {
-        int randIndex = getRandomBlock();
+        return tetraminoCoords;
 
-        
-        // ѕо€вление случайного блока
-        Instantiate(blocksToSpawn[randIndex], blocksToSpawn[randIndex].transform.position, Quaternion.identity);
-
-        foreach(Vector2Int cubeCoord in blocksToSpawn[randIndex].GetComponent<BlockLogic>().startblockOffsets) {
-
-            TetrisGrid.fillMatrix[TetrisGrid.spawnStartPosition.x + cubeCoord.x, cubeCoord.y] = TetrisGrid.cell.FILLED;
-
-        }   
     }
 
 
-
-    public int getRandomBlock()
+    public int getRandomBlockIndex()
     {
-        randomIndex = UnityEngine.Random.Range(0, blocksToSpawn.Length);
+        randomIndex = UnityEngine.Random.Range(0, tetraminos.Length);
         return randomIndex;
     }
 }

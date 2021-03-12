@@ -9,7 +9,7 @@ public class LeftButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameController.instance.leftButtonPressed = true;
+        GameController.instance.GetComponent<BlockMover>().leftButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -21,7 +21,7 @@ public class LeftButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        GameController.instance.leftButtonPressed = false;
+        GameController.instance.GetComponent<BlockMover>().leftButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
