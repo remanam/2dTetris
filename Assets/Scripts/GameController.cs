@@ -33,7 +33,8 @@ public class GameController : MonoBehaviour
 
     private Vector2Int startPosition;
 
-
+    [SerializeField]
+    private Vector2Int[] tetraminoToMove;
 
     public float normal_Block_Speed = 0.45f;
     public float fast_Block_Speed = 0.2f; // Когда игрок нажал кнопку вниз
@@ -43,6 +44,16 @@ public class GameController : MonoBehaviour
 
     // true if need to spawn next block
     public bool neetToSpawn = true;
+
+    public bool leftButtonPressed = false;
+    public bool rightButtonPressed = false;
+    public bool rotateButtonPressed = false;
+    public bool accelerationButtonPressed = false;
+
+    private float timer;
+    private float previous_Step_Timer;
+
+    private int currentTetraminoLength;
 
 
     private void Awake()
@@ -70,6 +81,8 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
+        currentTetraminoLength = tetraminoToMove.Length;
+
         // Каждый blockSpawnFrequency появляем случайный блок
         if (neetToSpawn == true || firstStart == true) {
 
@@ -80,6 +93,35 @@ public class GameController : MonoBehaviour
             firstStart = false;
 
             neetToSpawn = false;
+        }
+
+
+        timer += Time.deltaTime;
+
+        if (rotateButtonPressed == true) {
+
+
+        }
+
+        // Left 
+        if (leftButtonPressed == true) {
+
+
+
+        }
+        //Right
+        if (rightButtonPressed == true) {
+
+
+        }
+
+
+
+        if (timer - previous_Step_Timer > GameController.instance.normal_Block_Speed /*&& CanMove() == true*/) {
+
+
+
+            previous_Step_Timer = timer;
         }
     }
 
@@ -132,6 +174,35 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+
+    private void MoveBlock(Vector2Int[] tetraminoPositions, Vector3 direction)
+    {
+        // clear current cells
+        for (int i = 0; i < currentTetraminoLength; i++)
+            foreach (Vector2Int coord in tetraminoPositions) {
+
+                //DisableCell(tetrisGridInstance.grid[coord.x, coord.y].GetComponent<SpriteRenderer>());
+
+            }
+
+        // fill new cells
+        for (int i = 0; i < currentTetraminoLength; i++) {
+
+            //EnableCell(tetrisGridInstance.grid[tetraminoPositions[i].x, tetraminoPositions[i].y].GetComponent<SpriteRenderer>());
+
+            tetraminoPositions[i].y += 1;
+        }
+    }
+
+    private bool CanMove(Vector2Int[] blockPositions, Vector3 direction)
+    {
+
+
+
+        return true;
+    }
+
 
     //DEBUG
     public void RestartScene()
