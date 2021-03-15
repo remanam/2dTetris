@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class Cell_Data : MonoBehaviour
 {
-    
+    public enum cellState
+    {
+        empty,
+        filled
+    }
+
 }

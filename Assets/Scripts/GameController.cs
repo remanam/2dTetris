@@ -36,8 +36,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Vector2Int[] tetraminoToMove;
 
-    public float normal_Block_Speed = 0.45f;
-    public float fast_Block_Speed = 0.2f; // Когда игрок нажал кнопку вниз
+    public float fall_Speed = 0.45f;
+    public float fast_Fall_Speed = 0.2f; // Когда игрок нажал кнопку вниз
 
 
     public BlockCreator blockCreator;
@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour
 
 
 
-        if (timer - previous_Step_Timer > GameController.instance.normal_Block_Speed /*&& CanMove() == true*/) {
+        if (timer - previous_Step_Timer > GameController.instance.fall_Speed /*&& CanMove() == true*/) {
 
 
 
@@ -129,9 +129,9 @@ public class GameController : MonoBehaviour
     {
         Vector3 currentPosition;
 
-        for (int y = 0; y < tetrisGrid.GetMatrixSize().y; y++) {
+        for (int y = 0; y < tetrisGrid.GetBoardSize().y; y++) {
 
-            for (int x = 0; x < tetrisGrid.GetMatrixSize().x; x++) {
+            for (int x = 0; x < tetrisGrid.GetBoardSize().x; x++) {
                 // Count position of each cell
                 currentPosition = gridStartPosition.localPosition + new Vector3(tetrisGrid.grid_Step * x, -tetrisGrid.grid_Step * y, 0f);
                 transform.position = currentPosition;

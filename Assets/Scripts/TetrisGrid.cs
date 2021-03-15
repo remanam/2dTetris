@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TetrisGrid : MonoBehaviour
 {
-
+    // step distance in worldCoords
     public float grid_Step = 0.3755f;
 
-    // default spawnPosition for blocks (Count from left upper cell)
+    // first cell position
     private Vector3 startGridPosition;
 
     private int width, height;
@@ -29,13 +29,21 @@ public class TetrisGrid : MonoBehaviour
         height = _height;
         startGridPosition = _startGridPosition;
 
-        grid = new GameObject[width, height];
+        
     }
 
 
-    public Vector2Int GetMatrixSize()
+    public void InitGrid()
+    {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+               
+            }
+        }
+    }
+
+    public Vector2Int GetBoardSize()
     {
         return new Vector2Int(width, height);
     }
-
 }

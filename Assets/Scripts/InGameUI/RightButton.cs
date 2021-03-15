@@ -7,7 +7,7 @@ public class RightButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameController.instance.GetComponent<BlockMover>().rightButtonPressed = true;
+        GameController.instance.rightButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -19,7 +19,7 @@ public class RightButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        GameController.instance.GetComponent<BlockMover>().rightButtonPressed = false;
+        GameController.instance.rightButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
