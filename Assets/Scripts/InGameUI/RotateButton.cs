@@ -5,9 +5,12 @@ using UnityEngine.EventSystems;
 
 public class RotateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField]
+
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameController.instance.rotateButtonPressed = true;
+        TetrisGrid.rotateButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -19,7 +22,7 @@ public class RotateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        GameController.instance.rotateButtonPressed = false;
+        TetrisGrid.rotateButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)

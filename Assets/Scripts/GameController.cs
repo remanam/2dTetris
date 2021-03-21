@@ -45,13 +45,6 @@ public class GameController : MonoBehaviour
     // true if need to spawn next block
     public bool neetToSpawn = true;
 
-    public bool leftButtonPressed = false;
-    public bool rightButtonPressed = false;
-    public bool rotateButtonPressed = false;
-    public bool accelerationButtonPressed = false;
-
-    private float timer;
-    private float previous_Step_Timer;
 
     private int currentTetraminoLength;
 
@@ -95,34 +88,8 @@ public class GameController : MonoBehaviour
             neetToSpawn = false;
         }
 
+  
 
-        timer += Time.deltaTime;
-
-        if (rotateButtonPressed == true) {
-
-
-        }
-
-        // Left 
-        if (leftButtonPressed == true) {
-
-
-
-        }
-        //Right
-        if (rightButtonPressed == true) {
-
-
-        }
-
-
-
-        if (timer - previous_Step_Timer > GameController.instance.fall_Speed /*&& CanMove() == true*/) {
-
-
-
-            previous_Step_Timer = timer;
-        }
     }
 
     public void InitEmptyGrid()
