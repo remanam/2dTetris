@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 726497970}
   - component: {fileID: 726497969}
   - component: {fileID: 726497971}
+  - component: {fileID: 726497972}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -668,15 +669,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8014cb4070402ce409304fd6795de456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentForGridCell: {fileID: 1887906627}
-  gridStartPosition: {fileID: 610854964}
-  cellPrefab: {fileID: 3464511828253477740, guid: 479fe3778f03ae1418b9fdc8b432aab5, type: 3}
+  tetrisGrid: {fileID: 0}
   filledCube: {fileID: 5826410909707381162, guid: 90661493cfcb3f54191dc0b2c41fc4d5, type: 3}
   width: 10
   height: 20
-  normal_Block_Speed: 0.45
-  fast_Block_Speed: 0.2
-  blockCreator: {fileID: 726497971}
+  tetraminoToMove: []
+  fall_Speed: 0.45
+  fast_Fall_Speed: 0.2
   neetToSpawn: 1
   firstStart: 1
 --- !u!4 &726497970
@@ -710,6 +709,21 @@ MonoBehaviour:
   - {fileID: 4946571321876390267, guid: 107a306563e4c2d4cbe2559b792b04ac, type: 3}
   spawnPosition: {x: 5, y: 0}
   blockSpawnFrequency: 6
+--- !u!114 &726497972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726497968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7374e3be4c5a12c4b899db962f5635d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridStartPosition: {fileID: 610854964}
+  parentForGridCell: {fileID: 1887906627}
+  cellPrefab: {fileID: 3464511828253477740, guid: 479fe3778f03ae1418b9fdc8b432aab5, type: 3}
 --- !u!1 &878954996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,51 +1623,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c14e4caf23739041a758da7b566a5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2144494230
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2144494232}
-  - component: {fileID: 2144494231}
-  m_Layer: 0
-  m_Name: Tetramino Mover
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2144494231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144494230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4844687736868374faf1b96bebecdabd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftButtonPressed: 0
-  rightButtonPressed: 0
-  rotateButtonPressed: 0
-  accelerationButtonPressed: 0
-  tetraminoToMove: []
---- !u!4 &2144494232
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144494230}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24076636, y: 0.88350034, z: -3.2217605}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

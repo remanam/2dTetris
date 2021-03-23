@@ -36,7 +36,7 @@ public class BlockCreator : MonoBehaviour
 
         foreach (Vector2Int cell in tetraminoCoords) {
 
-            GameController.instance.tetrisGrid.grid[spawnPosition.x + cell.x, 
+            GameController.instance.tetrisGrid.grid[spawnPosition.x + cell.x,
                               spawnPosition.y + cell.y]
                               .GetComponent<SpriteRenderer>().enabled = true;
 

@@ -10,18 +10,6 @@ public class GameController : MonoBehaviour
 
     public TetrisGrid tetrisGrid;
 
-    //For compact scene object storage
-    [SerializeField]
-    private Transform parentForGridCell;
-
-
-    [SerializeField]
-    private Transform gridStartPosition; // Left Upper cell of the Grid
-
-    
-
-    [SerializeField]
-    private GameObject cellPrefab;
 
     //filled Cubesprite
     public Sprite filledCube;
@@ -39,11 +27,8 @@ public class GameController : MonoBehaviour
     public float fall_Speed = 0.45f;
     public float fast_Fall_Speed = 0.2f; // Когда игрок нажал кнопку вниз
 
-
-    public BlockCreator blockCreator;
-
     // true if need to spawn next block
-    public bool neetToSpawn = true;
+    public bool neetToSpawn = false;
 
 
     private int currentTetraminoLength;
@@ -52,11 +37,11 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         MakeSingleton();
-        blockCreator = GetComponent<BlockCreator>();
 
-        tetrisGrid = new TetrisGrid(width, height, gridStartPosition.position);
+        tetrisGrid = GetComponent<TetrisGrid>();
 
-        InitEmptyGrid();
+        tetrisGrid.InitGrid();
+
     }
 
     private void MakeSingleton()
@@ -77,10 +62,10 @@ public class GameController : MonoBehaviour
         currentTetraminoLength = tetraminoToMove.Length;
 
         // Каждый blockSpawnFrequency появляем случайный блок
-        if (neetToSpawn == true || firstStart == true) {
+        if (neetToSpawn == true /*|| firstStart == true*/) {
 
 
-            blockCreator.SpawnTetramino();
+            //blockCreator.SpawnTetramino();
             
             //Flag for first spawn
             firstStart = false;
@@ -92,36 +77,6 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void InitEmptyGrid()
-    {
-        Vector3 currentPosition;
-
-        for (int y = 0; y < tetrisGrid.GetBoardSize().y; y++) {
-
-            for (int x = 0; x < tetrisGrid.GetBoardSize().x; x++) {
-                // Count position of each cell
-                currentPosition = gridStartPosition.localPosition + new Vector3(tetrisGrid.grid_Step * x, -tetrisGrid.grid_Step * y, 0f);
-                transform.position = currentPosition;
-
-
-                tetrisGrid.grid[x, y] = cellPrefab;
-
-                tetrisGrid.grid[x, y].transform.position = currentPosition; //set cell position
-
-
-                GameObject obj = Instantiate(tetrisGrid.grid[x, y], tetrisGrid.grid[x, y].transform.position, Quaternion.identity);
-
-                obj.GetComponent<SpriteRenderer>().enabled = false;
-
-                //Set parent transform for convinience in inspector
-                obj.transform.SetParent(parentForGridCell);
-
-
-            }
-            // Reset transform after each iteration
-            currentPosition = gridStartPosition.localPosition;
-        }
-    }
 
     //Movement script does that, 
     public void UpdateGridSprites(Vector2Int[] positions, Vector2Int[] posToUpdate)

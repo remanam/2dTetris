@@ -6,7 +6,7 @@ using UnityEngine;
 public class TetrisGrid : MonoBehaviour
 {
     // step distance in worldCoords
-    public float grid_Step = 0.3755f;
+    private float grid_Step = 0.3755f;
 
     // first cell position
     private Vector3 startGridPosition;
@@ -16,6 +16,14 @@ public class TetrisGrid : MonoBehaviour
     // Position matrix
     public GameObject[,] grid;
 
+    [SerializeField]
+    private Transform gridStartPosition; // Left Upper cell of the Grid
+
+    //Parent for cell matrix
+    [SerializeField]
+    private Transform parentForGridCell;
+
+    [SerializeField]
     private GameObject cellPrefab;
 
     public static bool leftButtonPressed = false;
@@ -44,10 +52,31 @@ public class TetrisGrid : MonoBehaviour
 
     public void InitGrid()
     {
+        Vector3 currentPosition;
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-               
+                // Count position of each cell
+                currentPosition = gridStartPosition.localPosition + new Vector3(grid_Step * x, -grid_Step * y, 0f);
+                transform.position = currentPosition;
+
+
+                grid[x, y] = cellPrefab;
+
+                grid[x, y].transform.position = currentPosition; //set cell position
+
+
+                GameObject obj = Instantiate(grid[x, y], grid[x, y].transform.position, Quaternion.identity);
+
+                obj.GetComponent<SpriteRenderer>().enabled = false;
+
+                //Set parent transform for convinience in inspector
+                obj.transform.SetParent(parentForGridCell);
+
+
             }
+            // Reset transform after each iteration
+            currentPosition = gridStartPosition.localPosition;
         }
     }
 
@@ -94,8 +123,6 @@ public class TetrisGrid : MonoBehaviour
 
 
         }
-
-
 
 
     }
