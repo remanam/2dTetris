@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public TetrisGrid tetrisGrid;
 
 
+
     //filled Cubesprite
     public Sprite filledCube;
 
@@ -34,7 +35,7 @@ public class GameController : MonoBehaviour
     private int currentTetraminoLength;
 
 
-    private void Awake()
+    private void Start()
     {
         MakeSingleton();
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockCreator : MonoBehaviour
+public class BlockSpawner : MonoBehaviour
 {
     private float previous_Step_Timer ;
     private float timer ;

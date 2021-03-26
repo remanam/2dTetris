@@ -31,6 +31,7 @@ public class TetrisGrid : MonoBehaviour
     public static bool rotateButtonPressed = false;
     public static bool accelerationButtonPressed = false;
 
+
     public enum cellState{
         empty,
         filled
