@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementControl : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     public static bool leftButtonPressed = false;
     public static bool rightButtonPressed = false;
@@ -11,8 +11,6 @@ public class MovementControl : MonoBehaviour
 
     private float timer;
     private float previous_Step_Timer;
-
-    private float fall_Speed;
 
     private void Update()
     {
@@ -44,31 +42,12 @@ public class MovementControl : MonoBehaviour
 
         }
 
-    }
 
-    private void MoveBlock(Vector2Int[] currentPositions, Vector3 targetPositions)
-    {
-        // clear current cells
-        for (int i = 0; i < currentPositions.Length; i++)
-            foreach (Vector2Int coord in currentPositions) {
-
-                GameController.tetrisGrid.DisableCell(tetrisGridInstance.grid[coord.x, coord.y].GetComponent<SpriteRenderer>());
-
-            }
-
-        // fill new cells
-        for (int i = 0; i < currentPositions.Length; i++) {
-
-            EnableCell(tetrisGridInstance.grid[tetraminoPositions[i].x, tetraminoPositions[i].y].GetComponent<SpriteRenderer>());
-
-            currentPositions[i].y += 1;
-        }
     }
 
     private void MoveDown()
     {
-        if (timer - previous_Step_Timer > fall_Speed /*&& CanMove() == true*/) {
-
+        if (timer - previous_Step_Timer > GameController.instance.fall_Speed /*&& CanMove() == true*/) {
 
 
             previous_Step_Timer = timer;

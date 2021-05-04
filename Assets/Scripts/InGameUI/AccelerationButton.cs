@@ -7,7 +7,7 @@ public class AccelerationButton : MonoBehaviour, IPointerDownHandler, IPointerUp
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        TetrisGrid.accelerationButtonPressed = true;
+        Movement.accelerationButtonPressed = true;
     }
 
 
@@ -16,6 +16,6 @@ public class AccelerationButton : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        TetrisGrid.rotateButtonPressed = false;
+        Movement.accelerationButtonPressed = false;
     }
 }

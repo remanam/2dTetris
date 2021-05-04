@@ -7,7 +7,7 @@ public class RightButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        TetrisGrid.rightButtonPressed = true;
+        Movement.rightButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -19,7 +19,7 @@ public class RightButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        TetrisGrid.rightButtonPressed = false;
+        Movement.rightButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class TetrisGrid : MonoBehaviour
 {
-    // step distance in worldCoords
+    // step in worldCoords
     private float grid_Step = 0.3755f;
 
-    // first cell position
-    private Vector3 startGridPosition;
-
-    private int width, height;
+    private int width = 10, height = 20;
 
     // Position matrix
     public GameObject[,] grid;
@@ -26,10 +23,7 @@ public class TetrisGrid : MonoBehaviour
     [SerializeField]
     private GameObject cellPrefab;
 
-    public static bool leftButtonPressed = false;
-    public static bool rightButtonPressed = false;
-    public static bool rotateButtonPressed = false;
-    public static bool accelerationButtonPressed = false;
+
 
 
     public enum cellState{
@@ -40,17 +34,17 @@ public class TetrisGrid : MonoBehaviour
     private float timer;
     private float previous_Step_Timer;
 
-
-    public TetrisGrid(int _width, int _height, Vector3 _startGridPosition)
+    // Setup board properties
+    public void SetupGrid(int _width, int _height)
     {
         width = _width;
         height = _height;
-        startGridPosition = _startGridPosition;
 
-        
+        grid = new GameObject[width, height];
+     
     }
 
-
+    // Render board
     public void InitGrid()
     {
         Vector3 currentPosition;
@@ -68,6 +62,7 @@ public class TetrisGrid : MonoBehaviour
 
 
                 GameObject obj = Instantiate(grid[x, y], grid[x, y].transform.position, Quaternion.identity);
+                grid[x, y] = obj;
 
                 obj.GetComponent<SpriteRenderer>().enabled = false;
 
@@ -81,50 +76,31 @@ public class TetrisGrid : MonoBehaviour
         }
     }
 
+    public void CreateTetramino(Vector2Int[] tetraminos)
+    {
+        foreach(Vector2Int tetramino in tetraminos) {
+            EnableSpriteOnPosition(tetramino);
+        }
+    }
+
+    public void EnableSpriteOnPosition(Vector2Int spritePos)
+    {
+        grid[spritePos.x, spritePos.y].GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public void DisableSpriteOnPosition(Vector2Int spritePos)
+    {
+        grid[spritePos.x, spritePos.y].GetComponent<SpriteRenderer>().enabled = false;
+    }
+
     public Vector2Int GetBoardSize()
     {
         return new Vector2Int(width, height);
     }
 
-    private void Update()
-    {
-        timer += Time.deltaTime;
-
-        MovementInput();
-
-        MoveDown();
-    }
-
-    private void MoveDown()
-    {
-        if (timer - previous_Step_Timer > GameController.instance.fall_Speed /*&& CanMove() == true*/) {
-
-
-            previous_Step_Timer = timer;
-        }
-    }
-
-    private void MovementInput()
-    {
-        timer += Time.deltaTime;
-
-        if (rotateButtonPressed == true) {
-
-
-        }
-
-        // Left 
-        if (leftButtonPressed == true) {
 
 
 
-        }
-        //Right
-        if (rightButtonPressed == true) {
 
 
-        }
-
-
-    }
 }

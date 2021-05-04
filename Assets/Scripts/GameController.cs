@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController instance;
 
-    public TetrisGrid tetrisGrid;
+    public static TetrisGrid tetrisGrid;
 
+    private MovementControl movementControl;
 
 
     //filled Cubesprite
@@ -19,8 +19,6 @@ public class GameController : MonoBehaviour
     private int width;
     [SerializeField]
     private int height;
-
-    private Vector2Int startPosition;
 
     [SerializeField]
     private Vector2Int[] tetraminoToMove;
@@ -32,39 +30,26 @@ public class GameController : MonoBehaviour
     public bool neetToSpawn = false;
 
 
-    private int currentTetraminoLength;
-
-
     private void Start()
     {
-        MakeSingleton();
 
         tetrisGrid = GetComponent<TetrisGrid>();
+        tetrisGrid.SetupGrid(width, height);
 
         tetrisGrid.InitGrid();
 
-    }
+        tetrisGrid.CreateTetramino(tetraminoToMove);
 
-    private void MakeSingleton()
-    {
-        if (instance != null) {
-            Destroy(gameObject);
-        }
-        else {
-            instance = this;
-        }
     }
 
 
     public bool firstStart = true;
     void Update()
     {
-
-        currentTetraminoLength = tetraminoToMove.Length;
+       
 
         // Каждый blockSpawnFrequency появляем случайный блок
         if (neetToSpawn == true /*|| firstStart == true*/) {
-
 
             //blockCreator.SpawnTetramino();
             
@@ -74,49 +59,12 @@ public class GameController : MonoBehaviour
             neetToSpawn = false;
         }
 
-  
-
+ 
     }
 
 
-    //Movement script does that, 
-    public void UpdateGridSprites(Vector2Int[] positions, Vector2Int[] posToUpdate)
-    {
-        //Clear current cells
-        for (int i = 0; i < positions.Length; i++) {
-
-            tetrisGrid.grid[positions[i].x + startPosition.x, positions[i].y].SetActive(false); // Make cell inactive
-        }
-
-        //fill nextPosition
-        for (int i = 0; i < positions.Length; i++) {
-
-            tetrisGrid.grid[posToUpdate[i].x + startPosition.x, posToUpdate[i].y].GetComponent<SpriteRenderer>().sprite = filledCube; // fill cell
 
 
-        }
-
-    }
-
-
-    private void MoveBlock(Vector2Int[] tetraminoPositions, Vector3 direction)
-    {
-        // clear current cells
-        for (int i = 0; i < currentTetraminoLength; i++)
-            foreach (Vector2Int coord in tetraminoPositions) {
-
-                //DisableCell(tetrisGridInstance.grid[coord.x, coord.y].GetComponent<SpriteRenderer>());
-
-            }
-
-        // fill new cells
-        for (int i = 0; i < currentTetraminoLength; i++) {
-
-            //EnableCell(tetrisGridInstance.grid[tetraminoPositions[i].x, tetraminoPositions[i].y].GetComponent<SpriteRenderer>());
-
-            tetraminoPositions[i].y += 1;
-        }
-    }
 
     private bool CanMove(Vector2Int[] blockPositions, Vector3 direction)
     {

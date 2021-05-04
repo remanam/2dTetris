@@ -648,8 +648,8 @@ GameObject:
   m_Component:
   - component: {fileID: 726497970}
   - component: {fileID: 726497969}
-  - component: {fileID: 726497971}
   - component: {fileID: 726497972}
+  - component: {fileID: 726497971}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -669,11 +669,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8014cb4070402ce409304fd6795de456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tetrisGrid: {fileID: 0}
+  tetrisGrid: {fileID: 726497972}
   filledCube: {fileID: 5826410909707381162, guid: 90661493cfcb3f54191dc0b2c41fc4d5, type: 3}
   width: 10
   height: 20
-  tetraminoToMove: []
+  tetraminoToMove:
+  - {x: 5, y: 0}
+  - {x: 6, y: 0}
+  - {x: 4, y: 0}
+  - {x: 4, y: 1}
   fall_Speed: 0.45
   fast_Fall_Speed: 0.2
   neetToSpawn: 1
@@ -702,13 +706,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 726497968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 574aecdce14679243a0137733a6faf32, type: 3}
+  m_Script: {fileID: 11500000, guid: 1764e4f930b77c14fa389e6c7dffe417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tetraminos:
-  - {fileID: 4946571321876390267, guid: 107a306563e4c2d4cbe2559b792b04ac, type: 3}
-  spawnPosition: {x: 5, y: 0}
-  blockSpawnFrequency: 6
 --- !u!114 &726497972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1153,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

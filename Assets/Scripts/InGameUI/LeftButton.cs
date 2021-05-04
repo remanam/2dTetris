@@ -9,7 +9,7 @@ public class LeftButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        TetrisGrid.leftButtonPressed = true;
+        Movement.leftButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -21,7 +21,7 @@ public class LeftButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        TetrisGrid.leftButtonPressed = false;
+        Movement.leftButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -10,7 +10,7 @@ public class RotateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        TetrisGrid.rotateButtonPressed = true;
+        Movement.rotateButtonPressed = true;
         StartCoroutine(StopClickEvent());
     }
 
@@ -22,7 +22,7 @@ public class RotateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         yield return waitForEndOfFrame;
 
         Debug.Log("Right button Up");
-        TetrisGrid.rotateButtonPressed = false;
+        Movement.rotateButtonPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
