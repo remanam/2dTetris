@@ -52,14 +52,14 @@ public class MovementControl : MonoBehaviour
         for (int i = 0; i < currentPositions.Length; i++)
             foreach (Vector2Int coord in currentPositions) {
 
-                GameController.tetrisGrid.DisableCell(tetrisGridInstance.grid[coord.x, coord.y].GetComponent<SpriteRenderer>());
+                GameController.tetrisGrid.DisableSpriteOnPosition(tetrisGrid.grid[coord.x, coord.y].GetComponent<SpriteRenderer>());
 
             }
 
         // fill new cells
         for (int i = 0; i < currentPositions.Length; i++) {
 
-            EnableCell(tetrisGridInstance.grid[tetraminoPositions[i].x, tetraminoPositions[i].y].GetComponent<SpriteRenderer>());
+            GameController.tetrisGrid.EnableSpriteOnPosition(GameController.tetrisGrid.grid[targetPositions.x, targetPositions.y].GetComponent<SpriteRenderer>());
 
             currentPositions[i].y += 1;
         }

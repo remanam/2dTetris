@@ -34,9 +34,8 @@ public class GameController : MonoBehaviour
     {
 
         tetrisGrid = GetComponent<TetrisGrid>();
-        tetrisGrid.SetupGrid(width, height);
 
-        tetrisGrid.InitGrid();
+        tetrisGrid.InitGrid(width, height);
 
         tetrisGrid.CreateTetramino(tetraminoToMove);
 

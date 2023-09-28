@@ -35,18 +35,16 @@ public class TetrisGrid : MonoBehaviour
     private float previous_Step_Timer;
 
     // Setup board properties
-    public void SetupGrid(int _width, int _height)
+
+
+    // Render board
+    public void InitGrid(int _width, int _height)
     {
         width = _width;
         height = _height;
 
         grid = new GameObject[width, height];
-     
-    }
 
-    // Render board
-    public void InitGrid()
-    {
         Vector3 currentPosition;
 
         for (int x = 0; x < width; x++) {
